@@ -6,17 +6,18 @@ const AddTaskForm = ({ onAdd }) => {
     
   const handleSubmit = (e) => {
     e.preventDefault();
+    if(!text.trim()) return; // para no añadir tareas vacias
     onAdd(text);
-    alert("Agregaste una nueva tarea");
+    setText(""); // limpiar input despues de añadir
   };
 
   return (
-    <form>
+    // evento onSubmit lo manejamos en el form
+    <form onSubmit={handleSubmit}>
       <input
-        onSubmit={handleSubmit}
         type="text"
         placeholder="Agrega el texto"
-        onChange={() => setText(e.target.value)}
+        onChange={(e) => setText(e.target.value)}
       />
       <button>Agregar</button>
     </form>

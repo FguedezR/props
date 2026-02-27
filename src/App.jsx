@@ -11,7 +11,7 @@ const App = () => {
   ]);
 
   const addTask = (text) => {
-    const newTask = { id: task.length + 1, text, completed: false };
+    const newTask = { id: tasks.length + 1, text, completed: false };
     setTasks([...tasks, newTask])
   };
   // task.length + 1 -> de la nueva tarea
