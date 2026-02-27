@@ -11,7 +11,9 @@ const App = () => {
   ]);
 
   const addTask = (text) => {
-    const newTask = { id: tasks.length + 1, text, completed: false };
+    // podemos usar Date.now() para un id unico mas fiable que el length
+    const newTask = { id: Date.now(), text, completed: false };
+    //const newTask = { id: tasks.length + 1, text, completed: false };
     setTasks([...tasks, newTask])
   };
   // task.length + 1 -> de la nueva tarea
@@ -23,17 +25,27 @@ const App = () => {
     setTasks(tasks.filter((task) => task.id !== taskId));
   };
 
+  const toggleTask = (taskId) => {
+    setTasks(
+      tasks.map((task) =>
+        task.id === taskId ? { ...task, completed: !task.completed } : task
+      ));
+  };
+
   return (
     <div>
       <h1>Lista de tareas</h1>
 
-      <AddTaskForm onAdd={addTask}/>
+      <AddTaskForm onAdd={addTask} />
 
-      {tasks.map(task => 
+      {tasks.map((task) => (
         <Task
+          key={task.id}
           task={task}
           onDelete={deleteTask}
-        />)}
+          onToggle={toggleTask}
+        />
+      ))}
     </div>
   );
 };
